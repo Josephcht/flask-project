@@ -1,0 +1,2 @@
+flaticon
+icomoon
