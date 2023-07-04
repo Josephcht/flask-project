@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Nanyang Financial Holdings - Lock card{% endblock %}
+{% from "includes/_formHelper.html" import render_field %}
+{% block content %}
+<section class="vh-100 gradient-custom">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+
+            <div class="mb-md-5 mt-md-4 pb-5">
+
+              <h2 class="fw-bold mb-2 text-uppercase">Lock Card</h2>
+              <p class="text-white-50 mb-5">Please enter your Username and password!</p>
+            <form action="" method="post">
+             <div class="form-outline form-white form-group mb-4">
+
+                 {{ render_field(form.username, class="form-control") }}
+
+             </div>
+
+              <div class="form-outline form-white form-group mb-4">
+
+                  {{ render_field(form.PIN, class="form-control") }}
+
+              </div>
+                <p>*Note: Once card is locked, no transactions can be processed through it until unlocked. To unlock will require the assistance of a staff.</p>
+              <button class="btn btn-danger btn-lg px-5" type="submit" onclick="return confirm('Are you sure you want to lock your card')">Lock</button>
+            </form>
+            {% if error %}
+                <p class="error"><strong>Error:</strong> {{ error }}
+            {% endif %}
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

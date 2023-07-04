@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <style>
+    body {
+        font-family: 'Varela Round', sans-serif;
+    }
+    .form-control {
+        box-shadow: none;
+        font-weight: normal;
+        font-size: 13px;
+    }
+    .navbar {
+        background: #fff;
+        padding-left: 16px;
+        padding-right: 16px;
+        border-bottom: 1px solid #dfe3e8;
+        border-radius: 0;
+    }
+    .nav-link img {
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        margin: -8px 0;
+        float: left;
+        margin-right: 10px;
+    }
+    .navbar .navbar-brand {
+        padding-left: 0;
+        font-size: 20px;
+        padding-right: 50px;
+    }
+    .navbar .navbar-brand b {
+        color: #33cabb;
+    }
+    .navbar .form-inline {
+        display: inline-block;
+    }
+    .navbar a {
+        color: #888;
+        font-size: 15px;
+    }
+    .search-box {
+        position: relative;
+    }
+    .search-box input {
+        padding-right: 35px;
+        border-color: #dfe3e8;
+        border-radius: 4px !important;
+        box-shadow: none
+    }
+    .search-box .input-group-text {
+        min-width: 35px;
+        border: none;
+        background: transparent;
+        position: absolute;
+        right: 0;
+        z-index: 9;
+        padding: 7px;
+        height: 100%;
+    }
+    .search-box i {
+        color: #a0a5b1;
+        font-size: 19px;
+    }
+    .navbar .sign-up-btn {
+        min-width: 110px;
+        max-height: 36px;
+    }
+    .navbar .dropdown-menu {
+        color: #999;
+        font-weight: normal;
+        border-radius: 1px;
+        border-color: #e5e5e5;
+        box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+    .navbar a, .navbar a:active {
+        color: #888;
+        padding: 8px 20px;
+        background: transparent;
+        line-height: normal;
+    }
+    .navbar .navbar-form {
+        border: none;
+    }
+    .navbar .action-form {
+        width: 280px;
+        padding: 20px;
+        left: auto;
+        right: 0;
+        font-size: 14px;
+    }
+    .navbar .action-form a {
+        color: #33cabb;
+        padding: 0 !important;
+        font-size: 14px;
+    }
+    .navbar .action-form .hint-text {
+        text-align: center;
+        margin-bottom: 15px;
+        font-size: 13px;
+    }
+    .navbar .btn-primary, .navbar .btn-primary:active {
+        color: #fff;
+        background: #33cabb !important;
+        border: none;
+    }
+    .navbar .btn-primary:hover, .navbar .btn-primary:focus {
+        color: #fff;
+        background: #31bfb1 !important;
+    }
+    .navbar .social-btn .btn, .navbar .social-btn .btn:hover {
+        color: #fff;
+        margin: 0;
+        padding: 0 !important;
+        font-size: 13px;
+        border: none;
+        transition: all 0.4s;
+        text-align: center;
+        line-height: 34px;
+        width: 47%;
+        text-decoration: none;
+    }
+    .navbar .social-btn .facebook-btn {
+        background: #507cc0;
+    }
+    .navbar .social-btn .facebook-btn:hover {
+        background: #4676bd;
+    }
+    .navbar .social-btn .twitter-btn {
+        background: #64ccf1;
+    }
+    .navbar .social-btn .twitter-btn:hover {
+        background: #4ec7ef;
+    }
+    .navbar .social-btn .btn i {
+        margin-right: 5px;
+        font-size: 16px;
+        position: relative;
+        top: 2px;
+    }
+    .or-seperator {
+        margin-top: 32px;
+        text-align: center;
+        border-top: 1px solid #e0e0e0;
+    }
+    .or-seperator b {
+        color: #666;
+        padding: 0 8px;
+        width: 30px;
+        height: 30px;
+        font-size: 13px;
+        text-align: center;
+        line-height: 26px;
+        background: #fff;
+        display: inline-block;
+        border: 1px solid #e0e0e0;
+        border-radius: 50%;
+        position: relative;
+        top: -15px;
+        z-index: 1;
+    }
+    .navbar .action-buttons .dropdown-toggle::after {
+        display: none;
+    }
+    .form-check-label input {
+        position: relative;
+        top: 1px;
+    }
+    @media (min-width: 1200px){
+        .form-inline .input-group {
+            width: 300px;
+            margin-left: 30px;
+        }
+    }
+    @media (max-width: 768px){
+        .navbar .dropdown-menu.action-form {
+            width: 100%;
+            padding: 10px 15px;
+            background: transparent;
+            border: none;
+        }
+        .navbar .form-inline {
+            display: block;
+        }
+        .navbar .input-group {
+            width: 100%;
+        }
+    }
+    </style>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Bootstrap 4.5.2 CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+
+<body style="background-color:#eae3c9">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script>
+    // Prevent dropdown menu from closing when click inside the form
+    $(document).on("click", ".action-buttons .dropdown-menu", function(e){
+        e.stopPropagation();
+    });
+    </script>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+	<a href="#" class="navbar-brand">Nanyang Financial Holding<b></b></a>
+	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<!-- Collection of nav links, forms, and other content for toggling -->
+	<div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
+		<div class="navbar-nav">
+			{% if login %}
+			<a href="/mainHome" class="nav-item nav-link">Home</a>
+			{% else %}
+			<a href="/" class="nav-item nav-link">Home</a>
+			{% endif %}
+			<a href="#" class="nav-item nav-link">About</a>
+			<a href="/lockCard" class="dropdown-item">Lock Card</a>
+			{% if login %}
+				{% if not admin %}
+					<div class="nav-item dropdown">
+						<a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle">Manage Users</a>
+						<div class="dropdown-menu">
+							<a href="/retrieveUsers" class="dropdown-item">Retrieve User</a>
+							<a href="/deleteAccount" class="dropdown-item">Delete Account</a>
+							<a href="/changePIN" class="dropdown-item">Change PIN</a>
+						</div>
+					</div>
+					<div class="nav-item dropdown">
+						<a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle">Transfer</a>
+						<div class="dropdown-menu">
+							<a href="/recipient_list" class="dropdown-item">Recipient List</a>
+							<a href="/add_recipient" class="dropdown-item">Add Recipient</a>
+							<a href="/balancem" class="dropdown-item">Balance Management</a>
+							<a href="/tvalidate" class="dropdown-item">Transfer</a>
+						</div>
+					</div>
+					<div class="nav-item dropdown">
+					  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+						Help
+					  </a>
+					  <div class="dropdown-menu">
+						<a class="dropdown-item" href="/help">FAQs & Support</a>
+						<a class="dropdown-item" href="/Report_Feedback">Report & Feedback</a>
+
+					  </div>
+					</div>
+				{% else %}
+					<div class="nav-item dropdown">
+						<a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle">Manage Users</a>
+						<div class="dropdown-menu">
+							<a href="/unlockCard" class="dropdown-item">Unlock Card</a>
+							<a href="/dashboard" class="nav-item nav-link">View Report</a>
+							<a href="/retrieveUsers" class="dropdown-item">Retrieve User</a>
+						</div>
+						<a href="/retrieve_Feedbacks" class = "nav-item nav-link">Retrieve report & feedback</a>
+					</div>
+				{% endif %}
+			{% endif %}
+
+		</div>
+		<form class="navbar-form form-inline">
+			<div class="input-group search-box">
+				<input type="text" id="search" class="form-control" placeholder="Search here...">
+				<div class="input-group-append">
+					<span class="input-group-text">
+						<i class="material-icons">&#xE8B6;</i>
+					</span>
+				</div>
+			</div>
+		</form>
+        <div class="navbar-nav ml-auto action-buttons">
+			{% if login %}
+			    <a href="/logout" class="nav-link dropdown-toggle mr-4">Logout</a>
+			{% else %}
+				<a href="/login" class="nav-link dropdown-toggle mr-4">Login</a>
+				<a href="/createUser"  class="btn btn-primary dropdown-toggle sign-up-btn">Sign up</a>
+			{% endif %}
+			</div>
+        </div>
+<!--	</div>-->
+</nav>
+
+    <div class="container-fluid p-4"  >
+        <div class="row ">
+          <div class="col-lg-3  p-3 mb-2 text-black" style="background-color:#E1E3E6">
+            <div class="container my-2 p-4 border border-warning" >
+                <h2>Recipients List</h2>
+                <p>Access and manage your transfer recipients</p>
+                <button type="button" class="btn btn-warning btn-lg btn-block">View Recipients</button>
+            </div>
+            <div class="container my-2 p-4 border border-warning">
+                <h2>Make a Transfer</h2>
+                <p>Transfer funds to a recipient</p>
+                <button type="button" class="btn btn-warning btn-lg btn-block">Transfer Now</button>
+            </div>
+            <div class="container my-2 p-4 border border-warning">
+                <h2>Your accounts</h2>
+                <p>This is some text.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-9 , p-3 mb-2  text-dark" style="background-color:#E7E9EB">
+              {% block content %}
+
+              {% endblock %}
+          </div>
+        </div>
+
+    </div>
+
+    {% block scripts %}
+    <!-- jQuery 3.5.1, Popper 1.16.1, Bootstrap 4.5.2 JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+	<script>
+		function test() {
+		  document.getElementById("nconfirm").classList.remove("disabled");
+		  document.getElementById("li1").classList.remove("Active");
+          document.getElementById("li2").classList.add("Active");
+		}
+
+
+	</script>
+
+    {% endblock %}
+</body>
+</html>

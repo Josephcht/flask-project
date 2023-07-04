@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Nanyang Financial Holdings - Update Personal Credentials{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+<style>
+  body{
+  background-image: linear-gradient(147deg, #c3cbdc 0%, #edf1f4 74%);
+  height: 800px;
+  overflow-x: hidden;
+   }
+</style>
+<h2 class="text-uppercase text-center mb-5">Update Card Type</h2>
+
+<form method="POST" action="">
+  <!-- Email input -->
+    <div class="form-outline form-group mb-4">
+    {{ render_field(form.card_type, class="form-control") }}
+  </div>
+  <!-- 2 column grid layout for inline styling -->
+  <input type="submit" value="Submit" class="btn btn-primary"/>
+  <!-- Register buttons -->
+</form>
+
+      <div class="col-lg-14" style = "width: 1800px;">
+         <div class="row mt-3">
+             <section class="col-lg-2">
+                <div class="card rounded-0 h-100">
+                    <h1> Prepaid Card</h1>
+                    <hr>
+                    <ul>
+                        <li>Earn 6% cashback on everyday dining</li>
+                        <li>Earn 3% cashback on groceries, land transport, online travel, telco and electricity</li>
+                        <li>Earn up to 22.1% fuel savings at Caltex and 5% cashback for all other petrol brands </li>
+                    </ul>
+                </div>
+             </section>
+            <section class="col-lg-2">
+                <div class="card rounded-0 h-100">
+                    <h1> Debit Card</h1>
+                    <hr>
+                    <ul>
+                        <li>1% rebate on your daily Visa Spend for selected categories</li>
+                        <li>Choose from selected card designs</li>
+                        <li>Enjoy more payment and usage convenience</li>
+                        <li>No annual fee</li>
+                    </ul>
+
+
+
+
+
+                </div>
+            </section>
+
+            <section class="col-lg-2">
+                <div class="card rounded-0 h-100">
+                    <h1> Forex Card</h1>
+                    <hr>
+                    <ul>
+                        <li>Available in USD Dollars</li>
+                        <li>Zero cross currency charges – Load in Dollars use in any currency</li>
+                        <li>No ATM access charges when used at All Point Network ATMs (regular ATM withdrawal charges applicable)</li>
+                        <li>Complementary lounge access at International airports in India (2 per quarter)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="col-lg-2">
+                <div class="card rounded-0 h-100">
+                    <h1> Charge Card</h1>
+                    <hr>
+                    <ul>
+                        <li>10X Reward Points with online and contactless payments</li>
+                        <li>No minimum spend required! Enjoy 10X Reward points from the moment you start spending be it shopping online or making contactless payments through Visa payWave, Apple Pay or Google Pay.</li>
+                        <li>1X Reward point for all other types of spending</li>
+                        <li>There's no cap on the Reward points you can earn on everything else!</li>
+                        <li>No annual fee</li>
+                    </ul>
+
+                </div>
+            </section>
+        </div>
+   </div>
+
+{% endblock %}

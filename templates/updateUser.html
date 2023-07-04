@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Nanyang Financial Holdings - Update Personal Credentials{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+<h2 class="text-uppercase text-center mb-5">Update Personal Credentials</h2>
+<form method="POST" action="">
+  <!-- Email input -->
+  <div class="form-outline form-group mb-4">
+    {{ render_field(form.first_name, class="form-control") }}
+  </div>
+
+  <div class="form-outline form-group mb-4">
+    {{ render_field(form.last_name, class="form-control") }}
+  </div>
+
+  <div class="form-outline form-group mb-4">
+    {{ render_field(form.gender, class="form-control") }}
+  </div>
+
+  <div class="form-outline form-group mb-4">
+    {{ render_field(form.identity_type, class="form-control") }}
+  </div>
+  <div class="form-outline form-group mb-4">
+    {{ render_field(form.identity_no, class="form-control") }}
+  </div>
+  <div class="form-outline form-group mb-4">
+    {{ render_field(form.date_of_birth, class="form-control") }}
+  </div>
+  <div class="form-outline form-group mb-4">
+    {{ render_field(form.address, class="form-control") }}
+  </div>
+  <div class="form-outline form-group mb-4">
+    {{ render_field(form.region, class="form-control") }}
+  </div>
+  <div class="form-outline form-group mb-4">
+    {{ render_field(form.phone_no, class="form-control") }}
+  </div>
+  <div class="form-outline form-group mb-4">
+    {{ render_field(form.email, class="form-control") }}
+  </div>
+  <div class="form-outline form-group mb-4">
+    {{ render_field(form.username, class="form-control") }}
+  </div>
+
+  <!-- 2 column grid layout for inline styling -->
+
+
+  <input type="submit" value="Submit" class="btn btn-primary"/>
+
+  <!-- Register buttons -->
+
+</form>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "baset.html" %}
+{% block title %}Nanyang Financial Holdings - Recipient List{% endblock %}
+
+{% block content %}
+{% if 'not_added' in session %}
+<div class="alert alert-danger alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ session.pop('not_added', None) }}.
+</div>
+{% elif 'user_created' in session %}
+<div class="alert alert-success alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ session.pop('Recipient_Added', None) }} was created.
+</div>
+{% elif 'user_updated' in session %}
+<div class="alert alert-warning alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ session.pop('user_updated', None) }} was updated.
+</div>
+{% elif 'user_deleted' in session %}
+<div class="alert alert-danger alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ session.pop('user_deleted', None) }} was deleted.
+</div>
+{% endif %}
+ <div class=" row container-fluid mb-2">
+                  <h1>Recipient List</h1>
+                  <a type="button" class="btn btn-warning btn-lg ml-auto" onclick="href='/add_recipient'" >Add Recipient</a>
+            </div>
+<div>
+  {% if count == 0 %}
+  <p>There are no users.</p>
+  {% elif count == 1 %}
+  <p>1 recipient in list.</p>
+  {% else %}
+  <p> {{ count }} recipients in list.</p>
+  {% endif %}
+</div>
+<div class="container-fluid">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Gender</th>
+        <th>User ID</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Remarks</th>
+        <th>Action</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for user in users_list %}
+      <tr>
+          <td>{{ user.get_first_name() }}</td>
+          <td>{{ user.get_last_name() }}</td>
+          <td>{{ user.get_gender() }}</td>
+          <td>{{ user.get_user_id() }}</td>
+          <td>{{ user.get_email() }}</td>
+          <td>{{ user.get_phone() }}</td>
+          <td>{{ user.get_remarks() }}</td>
+        <td><a href="/update_recipient/{{user.get_user_id()}}" class="btn btn-success"><i class="fa fa-wrench" style="font-size:24px;"></i></a></td>
+        <td>
+          <form action="{{url_for('delete_recipient', id=user.get_user_id())}}" method="POST">
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal_{{user.get_user_id()}}">
+              <i class="fa fa-user-times" style="font-size:24px"></i>
+            </button>
+            <div class="modal" id="myModal_{{user.get_user_id()}}">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Delete Confirmation</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure you want to delete {{user.get_first_name()}} {{user.get_last_name()}}?
+                  </div>
+                  <div class="modal-footer">
+                    <input type="submit" value="Delete" class="btn btn-danger">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

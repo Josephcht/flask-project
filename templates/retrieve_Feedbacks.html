@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}Nanyang Financial Holdings - Retrieve Feedbacks{% endblock %}
+
+{% block content %}
+<h1 class="display-4">Retrieve Report/Feedbacks</h1>
+<div>
+  {% if count == 0 %}
+  <p>There are no feedbacks.</p>
+  {% elif count == 1 %}
+  <p>There is 1 feedback.</p>
+  {% else %}
+  <p>There are {{ count }} feedbacks.</p>
+  {% endif %}
+</div>
+
+<div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Feedback ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Reason</th>
+        <th>Report</th>
+        <th>Rating</th>
+        <th>Feedback</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for feedback in feedbacks_list %}
+      <tr>
+        <td>{{ feedback.get_Feedback_id() }}</td>
+        <td>{{ feedback.get_first_name() }}</td>
+        <td>{{ feedback.get_last_name() }}</td>
+        <td>{{ feedback.get_email() }}</td>
+        {% if feedback.get_reason() == "1" %}
+        <td>Loans</td>
+        {% elif feedback.get_reason() == "2" %}
+        <td>Fees</td>
+        {% elif feedback.get_reason() == "3" %}
+        <td>E-Service</td>
+        {% elif feedback.get_reason() == "4" %}
+        <td>Customer Service</td>
+        {% elif feedback.get_reason() == "5" %}
+        <td>Others</td>
+        {% elif feedback.get_reason() == "6" %}
+        <td>None</td>
+        {% endif %}
+        <td>{{ feedback.get_report() }}</td>
+        {% if feedback.get_rating() == "1" %}
+        <td>1</td>
+        {% elif feedback.get_rating() == "2" %}
+        <td>2</td>
+        {% elif feedback.get_rating() == "3" %}
+        <td>3</td>
+        {% elif feedback.get_rating() == "4" %}
+        <td>4</td>
+        {% elif feedback.get_rating() == "5" %}
+        <td>5</td>
+        {% endif %}
+        <td>{{ feedback.get_feedback() }}</td>
+        <td>
+          <form action="{{url_for('delete_feedback', id=feedback.get_Feedback_id())}}" method="POST">
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal_{{feedback.get_Feedback_id()}}">
+            Delete
+            </button>
+
+    <div class="modal" id="myModal_{{feedback.get_Feedback_id()}}">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <h4 class="modal-title">Delete Confirmation</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <div class="modal-body">
+            Are you sure you want to delete {{feedback.get_first_name()}} {{feedback.get_last_name()}} feedback/report?
+          </div>
+
+          <div class="modal-footer">
+            <input type="submit" value="Delete" class="btn btn-danger">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+          </form>
+        </td>
+      </tr>
+
+    {% endfor %}
+
+    </tbody>
+  </table>
+</div>
+{% endblock %}

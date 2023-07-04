@@ -1,0 +1,809 @@
+{% extends "base.html" %}
+{% block title %}Nanyang Financial Holdings - Report{% endblock %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chart JS</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<style>
+  body {
+  color: #000;
+  background: #599fd9;
+  background-color: #c3cbdc;
+  background-image: linear-gradient(147deg, #c3cbdc 0%, #edf1f4 74%);
+
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+ .vertical-nav {
+  min-width: 17rem;
+  width: 17rem;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  padding-top: 60px;
+  left: 0;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s;
+  background-image: linear-gradient(to bottom, #3c4049, #5a5c63, #79797f, #99999b, #b9b9b9);
+
+
+}
+.page-content {
+  width: 1500px;
+  margin-left: 17rem;
+  transition: all 0.4s;
+}
+
+#sidebar.active {
+  margin-left: -17rem;
+}
+
+#content.active {
+  width: 100%;
+  margin: 0;
+}
+
+.separator {
+  margin: 3rem 0;
+  border-bottom: 1px dashed #fff;
+}
+
+.text-uppercase {
+  letter-spacing: 0.1em;
+}
+.text-gray {
+  color: #000;
+}
+.nav-link{
+    text-transform: capitalize;
+    background-color: #5a5c63;
+}
+.nav-link:hover{
+    background-color: #3C4049;
+
+
+}
+.text-primary{
+    color:#7579e7 !important;
+}
+
+#customerInfo{
+    overflow-x: auto;
+    }
+
+
+@media (max-width: 768px) {
+  #sidebar {
+    margin-left: -17rem;
+  }
+  #sidebar.active {
+    margin-left: 0;
+  }
+  #content {
+    width: 100%;
+    margin: 0;
+  }
+  #content.active {
+    margin-left: 17rem;
+    width: calc(100% - 17rem);
+  }
+}
+
+
+</style>
+</head>
+
+<body>
+<!--SIDE BAR-->
+<div class="vertical-nav bg-white" id="sidebar">
+  <h2 class="text-white font-weight-bold text-uppercase px-3 small py-4 mb-0">Analytics</h2>
+
+  <ul class="nav flex-column bg-white mb-0">
+    <li class="nav-item">
+      <a class="nav-link text-white" onclick="openCity(event, 'London')">
+                <i class="fa fa-area-chart mr-3 text-primary fa-fw"></i>
+                Account Management
+            </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link text-white" onclick="openCity(event, 'Paris')">
+                <i class="fa fa-bar-chart mr-3 text-primary fa-fw"></i>
+                Transaction Processing
+            </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link text-white" onclick="openCity(event, 'Tokyo')">
+                <i class="fa fa-pie-chart mr-3 text-primary fa-fw"></i>
+                Customer Support
+            </a>
+    </li>
+  </ul>
+</div>
+
+<!--SIDE BAR ===========================>-->
+<!-- SIDE BAR CONTENT LINK -->
+<script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+
+<!--COLLABSIBLE SIDE BAR JS-->
+<script>
+    $(function() {
+  $('#sidebarCollapse').on('click', function() {
+    $('#sidebar, #content').toggleClass('active');
+  });
+});
+
+</script>
+<!-- END OF SIDE BAR -->
+
+<main>
+<!-- Page content holder -->
+<div class="page-content p-5" id="content">
+  <!-- Toggle button -->
+  <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4">
+      <i class="fa fa-bars mr-2"></i>
+      <small class="text-uppercase font-weight-bold">Toggle</small>
+  </button>
+
+
+
+   <div id="London" class="tabcontent">
+      <h2 class="display-4 text-black">
+          <b>Account Management Dashboard
+          </b>
+      </h2>
+      <div style = "padding: 10px;"></div>
+
+      <div class="col-lg-11">
+         <div class="row mt-3">
+            <section class="col-lg-6" style = "height : 400px;">
+                <div class="card rounded-0 h-100">
+                    <div class="card-header">Accounts by Age Groups</div>
+                    <div class="card-body d-flex align-items-center">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="col-lg-6">
+                <div class="card rounded-0 h-100">
+                    <div class="card-header">Regions by Accounts</div>
+                    <div class="card-body d-flex align-items-center">
+                        <canvas id="myChart2"></canvas>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="row mt-3">
+            <section class="col-lg-6" style = "height : 400px;">
+                <div class="card rounded-0 h-100">
+                    <div class="card-header">Products by Accounts</div>
+                    <div class="card-body d-flex align-items-center">
+                        <canvas id="myChart3"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section class="col-lg-6">
+                <div class="card rounded-0 h-100">
+                    <div class="card-header">Accounts by Nationality</div>
+                    <div class="card-body d-flex align-items-center">
+                        <canvas id="myChart4"></canvas>
+                    </div>
+                </div>
+            </section>
+        </div>
+      </div>
+   </div>
+
+<!-- Transaction Processing -->
+   <div id="Paris" class="tabcontent">
+      <h2 class="display-4 text-black">
+          <b>Transaction Processing Dashboard</b>
+      </h2>
+
+      <div style = "padding: 10px;"></div>
+
+    <div class="col-lg-11">
+          <div class="row">
+
+              <div class="col-md-6" style = "margin-top:20px;"> <!-- leftside -->
+
+                    <div class="col-md-13">
+                        <section class="col-lg-13" style = "height : 400px;">
+                            <div class="card rounded-0 h-100">
+                                <div class="card-header">Physical vs Online Transaction over Years</div>
+                                <div class="card-body d-flex align-items-center">
+                                    <canvas id="myChart5"></canvas>
+                                </div>
+                            </div>
+                        </section>
+                  </div>
+
+                   <div class="col-md-13">
+                        <section class="col-lg-13" style = "height : 400px;">
+                            <div class="card rounded-0 h-100">
+                                <div class="card-header">Types of Transactions</div>
+                                <div class="card-body d-flex align-items-center">
+                                    <canvas id="myChart6"></canvas>
+                                </div>
+                            </div>
+                        </section>
+                  </div>
+
+
+            </div>
+
+            <div class="col-lg-5" style="margin-left: 15px;margin-top: 20px;background-color:white;">
+                <table class = "table table-hover" id="myTable-1">
+                          <thead>
+                            <tr class="header">
+                                  <th>Sender ID</th>
+                                  <th>Recipient ID</th>
+                                  <th>Amount</th>
+                                  <th>Transaction Type</th>
+
+                            </tr>
+                          </thead>
+                          <tbody>
+                              {% for user in overall_transaction_list %}
+                              <tr>
+                                  <td>{{ user.get_sender_id() }}</td>
+                                  <td>{{ user.get_recipient_id() }}</td>
+                                  <td>{{ user.get_amount() }}</td>
+                                  <td>{{ user.get_type() }}</td>
+
+
+                              </tr>
+                          </tbody>
+                          {% endfor %}
+                        </table>
+
+
+
+            </div>
+
+
+
+
+          </div>
+      </div>
+
+
+
+
+   </div>
+   <div id="Tokyo" class="tabcontent">
+      <h2 class="display-4 text-black">
+          <b>Customer Support Dashboard
+          </b></h2>
+          <div style = "padding: 10px;"></div>
+            <div class="col-lg-11">
+                 <div class="row mt-3">
+                    <section class="col-lg-6" style = "height : 400px;">
+                        <div class="card rounded-0 h-100">
+                            <div class="card-header">Enquiries by Customers</div>
+                            <div class="card-body d-flex align-items-center">
+                                <canvas id="myChart8"></canvas>
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <section class="col-lg-6">
+                        <div class="card rounded-0 h-100">
+                            <div class="card-header">Customer Service Ratings</div>
+                            <div class="card-body d-flex align-items-center">
+                                <canvas id="myChart9"></canvas>
+                            </div>
+                        </div>
+                    </section>
+                 </div>
+
+
+
+
+                 <div class="col-lg-14" id = "customerInfo" style = "margin-top: 20px; background-color: white;">
+
+                    <h4>Customer Information</h4>
+                        <div>
+                          {% if count == 0 %}
+                            <p>There are no users.</p>
+                          {% elif count == 1 %}
+                            <p>There is 1 user.</p>
+                          {% else %}
+                            <p>There are {{ count }} users.</p>
+                          {% endif %}
+                        </div>
+
+                        <div class="input-group" style = "margin-bottom: 20px;">
+                          <input type="search" class="form-control rounded" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search ID" aria-label="Search" aria-describedby="search-addon" />
+                          <button type="button" class="btn btn-outline-primary" style = "background-color: gray;">search</button>
+                        </div>
+
+
+                          <table class = "table table-hover" id="myTable">
+                          <thead>
+                            <tr class="header" style = "background-color: gray;">
+                                  <th>ID</th>
+                                  <th>First Name</th>
+                                  <th>Last Name</th>
+                                  <th>Username</th>
+                                  <th>Gender</th>
+                                  <th>Region</th>
+                                  <th>Card Type</th>
+                                  <th>Phone</th>
+                                  <th>Email</th>
+                                  <th>Balance</th>
+                                  <th></th>
+                                  <th></th>
+
+                            </tr>
+                          </thead>
+                          <tbody>
+                              {% for user in user_list %}
+                              <tr>
+                                  <td>{{ user.get_user_id() }}</td>
+                                  <td>{{ user.get_first_name() }}</td>
+                                  <td>{{ user.get_last_name() }}</td>
+                                  <td>{{ user.get_username() }}</td>
+                                  <td>{{ user.get_gender() }}</td>
+                                  {% if user.get_region() == 'N' %}
+                                  <td>North</td>
+                                  {% elif user.get_region() == 'S' %}
+                                  <td>South</td>
+                                  {% elif user.get_region() == 'E' %}
+                                  <td>East</td>
+                                  {% elif user.get_region() == 'W' %}
+                                  <td>West</td>
+                                  {% endif %}
+
+
+                                  {% if user.get_card_type() == 'F' %}
+                                  <td>Forex</td>
+                                  {% elif user.get_card_type() == 'D' %}
+                                  <td>Debit</td>
+                                  {% elif user.get_card_type() == 'P' %}
+                                  <td>Prepaid</td>
+                                  {% elif user.get_card_type() == 'C' %}
+                                  <td>Credit</td>
+                                    {% endif %}
+                                  <td>{{ user.get_phone_no() }}</td>
+                                  <td>{{ user.get_email() }}</td>
+                                  <td>{{ user.get_balance() }}</td>
+                                  <td></td>
+
+                                  <td><a href="/staff_updateUser/{{user.get_user_id()}}" class="btn btn-warning" style = "background-color : gray">Update</a></td>
+                              </tr>
+                          </tbody>
+                          {% endfor %}
+                        </table>
+                    </div>
+
+
+
+
+
+            </div>
+        </div>
+   </div>
+</main>
+
+<!--DATA VISUALS JAVASCRIPTxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+<!--DASHBOARD 1=============================================================-->
+<script>
+const ctx = document.getElementById('myChart');
+const myChart = new Chart(ctx, {
+  type: 'bar',
+          data: {
+            labels: {{ labelAge | tojson}},
+            datasets: [{
+              label: "Age",
+              borderWidth: 1,
+              hoverBackgroundColor: 'rgba(0, 140, 255, 1)',
+              backgroundColor: 'gray',
+              data: [{% for item in teen%}
+                   "{{ item }}"
+                   {% endfor %},
+
+                    {% for item in graduate%}
+                   "{{ item }}"
+                   {% endfor %},
+
+                   {% for item in working%}
+                   "{{ item }}"
+                   {% endfor %},
+
+                   {% for item in experienced%}
+                   "{{ item }}"
+                   {% endfor %},
+
+
+                   {% for item in retirement%}
+                   "{{ item }}"
+                   {% endfor %},
+
+                    {% for item in elderly%}
+                   "{{ item }}"
+                   {% endfor %},]
+            }]
+          },
+          options: {
+          scales: {
+                y: {
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            },
+          maintainAspectRatio: false,
+          hoverBackgroundColor: 'rgba(0, 140, 255, 1)',
+            title: {
+              display: true,
+            }
+          }
+        });
+
+</script>
+<!--DASHBOARD 2=============================================================-->
+<script>
+const ctx2 = document.getElementById('myChart2');
+const myChart2 = new Chart(ctx2, {
+  type: 'bar',
+          data: {
+            labels: {{ labelRegion | tojson}} ,
+            datasets: [{
+              label: "Regions",
+              backgroundColor: 'gray',
+              hoverBackgroundColor: 'rgba(0, 140, 255, 1)',
+            data: [{% for item in north%}
+                   "{{ item }}"
+                   {% endfor %},
+
+                    {% for item in south%}
+                   "{{ item }}"
+                   {% endfor %},
+
+                   {% for item in east%}
+                   "{{ item }}"
+                   {% endfor %},
+
+                   {% for item in west%}
+                   "{{ item }}"
+                   {% endfor %},]
+            }]
+          },
+          options: {
+          indexAxis: 'y',
+          maintainAspectRatio: false,
+            title: {
+              display: true,
+            }
+          }
+        });
+
+
+</script>
+<!--DASHBOARD 3=============================================================&ndash;&gt;-->
+
+<script>
+const ctx3 = document.getElementById('myChart3');
+const myChart3 = new Chart(ctx3, {
+type: 'doughnut',
+    data: {
+    labels: {{labelCard | tojson }},
+      datasets: [
+        {
+          label: "Population (millions)",
+          hoverBackgroundColor: 'rgba(0, 140, 255, 1)',
+          backgroundColor: [
+          'rgba(0, 0, 0, 0.7)',
+          'rgba(0, 0, 0, 0.4)',
+          'rgba(0, 0, 0, 0.2)',
+          'rgba(0, 0, 0, 1)'],
+          data: [{% for item in debit %}
+                   "{{ item }}"
+                   {% endfor %},
+
+                    {% for item in credit%}
+                   "{{ item }}"
+                   {% endfor %},
+
+                   {% for item in prepaid%}
+                   "{{ item }}"
+                   {% endfor %},
+
+                   {% for item in forex%}
+                   "{{ item }}"
+                   {% endfor %},]
+        }
+      ]
+    },
+    options: {
+    maintainAspectRatio: false,
+      title: {
+        display: true,
+      }
+    }
+});
+
+</script>
+
+<!--DASHBOARD 4=============================================================&ndash;&gt;-->
+<script>
+const ctx4 = document.getElementById('myChart4');
+const myChart4 = new Chart(ctx4, {
+  type: 'bar',
+          data: {
+            labels: {{ labelNationality| tojson}},
+            datasets: [{
+              label: "Nationality",
+              borderWidth: 1,
+              hoverBackgroundColor: 'rgba(0, 140, 255, 1)',
+              backgroundColor: 'gray',
+              data: [{% for item in singaporean%}
+                   "{{ item }}"
+                   {% endfor %},
+
+                   {% for item in malaysian%}
+                   "{{ item }}"
+                   {% endfor %},
+
+                   {% for item in passport%}
+                   "{{ item }}"
+                   {% endfor %},]
+
+            }]
+          },
+          options: {
+          scales: {
+                y: {
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            },
+          maintainAspectRatio: false,
+          hoverBackgroundColor: 'rgba(0, 140, 255, 1)',
+            title: {
+              display: true,
+            }
+          }
+        });
+</script>
+
+<!--DASHBOARD 5 =============================================================&ndash;&gt;-->
+<script>
+const ctx5 = document.getElementById('myChart5');
+const myChart5 = new Chart(ctx5, {
+  type: 'bar',
+  options: {
+    maintainAspectRatio: false
+  },
+  data: {
+    labels: {{labelYear | tojson}},
+    datasets: [{
+      label: 'Physical Transaction',
+      data: {{physicalTransaction | tojson}},
+      fill: true,
+      borderWidth: 1,
+      backgroundColor: 'gray',
+      hoverBackgroundColor: 'rgba(0, 140, 255, 1)',
+    },
+    {
+      label: 'Online Transaction',
+      data:
+
+       [{% for item in onlineTransactions1 %}
+       "{{ item }}"
+       {% endfor %},
+
+       {% for item in onlineTransactions2 %}
+       "{{ item }}"
+       {% endfor %},
+
+       {% for item in transactions_data %}
+       "{{item}}"
+       {% endfor %},],
+      fill: true,
+      borderWidth: 1,
+      backgroundColor: 'black',
+      hoverBackgroundColor: 'rgba(0, 140, 255, 1)'
+    },
+    ]
+  },
+});
+
+</script>
+
+<!--DASHBOARD 6 =============================================================&ndash;&gt;-->
+<script>
+const ctx6 = document.getElementById('myChart6');
+const myChart6 = new Chart(ctx6, {
+type: 'doughnut',
+    data: {
+    labels: {{labelTransactions | tojson}},
+      datasets: [
+        {
+          label: "Population (millions)",
+          hoverBackgroundColor: 'rgba(0, 140, 255, 1)',
+          backgroundColor: [
+          'rgba(0, 0, 0, 0.4)',
+          'rgba(0, 0, 0, 0.2)',
+          'rgba(0, 0, 0, 1)'],
+          data: [{% for item in deposit %}
+               "{{ item }}"
+               {% endfor %},
+
+               {% for item in withdraw %}
+               "{{ item }}"
+               {% endfor %},
+
+               {% for item in transfer %}
+               "{{item}}"
+               {% endfor %},],
+        }
+      ]
+    },
+    options: {
+    maintainAspectRatio: false,
+      title: {
+        display: true,
+      }
+    }
+});
+
+</script>
+
+
+<!--DASHBOARD 8 =============================================================&ndash;&gt;-->
+<script>
+const ctx8 = document.getElementById('myChart8');
+const myChart8 = new Chart(ctx8, {
+  type: 'bar',
+    options: {
+    indexAxis: 'y',
+    maintainAspectRatio: false,
+    hoverBackgroundColor: 'rgba(0, 140, 255, 1)'
+
+  },
+  data: {
+    labels:{{labelEnquiries | tojson}} ,
+    datasets: [{
+      label: 'Enquiries',
+      data: [{% for item in reason_1 %}
+                   "{{ item }}"
+                   {% endfor %},
+
+                    {% for item in reason_2 %}
+                   "{{ item }}"
+                   {% endfor %},
+
+                   {% for item in reason_3 %}
+                   "{{ item }}"
+                   {% endfor %},
+
+                   {% for item in reason_4 %}
+                   "{{ item }}"
+                   {% endfor %},
+
+                   {% for item in reason_5 %}
+                   "{{ item }}"
+                   {% endfor %},],
+      fill: true,
+      borderWidth: 1,
+      backgroundColor: 'gray',
+    }]
+  },
+});
+
+
+</script>
+
+
+<!--DASHBOARD 9 =============================================================&ndash;&gt;-->
+<script>
+const ctx9 = document.getElementById('myChart9');
+const myChart9 = new Chart(ctx9, {
+  type: 'bar',
+    options: {
+    maintainAspectRatio: false,
+    hoverBackgroundColor: 'rgba(0, 140, 255, 1)'
+
+  },
+  data: {
+    labels:{{labelRatings | tojson}} ,
+    datasets: [{
+      label: 'Ratings',
+      data: [{% for item in rating_1 %}
+                   "{{ item }}"
+                   {% endfor %},
+
+                   {% for item in rating_2 %}
+                   "{{ item }}"
+                   {% endfor %},
+
+                   {% for item in rating_3 %}
+                   "{{ item }}"
+                   {% endfor %},
+
+                   {% for item in rating_4 %}
+                   "{{ item }}"
+                   {% endfor %},
+
+                   {% for item in rating_5 %}
+                   "{{ item }}"
+                   {% endfor %},],
+      fill: true,
+      borderWidth: 1,
+      backgroundColor: 'gray',
+    }]
+  },
+});
+
+
+</script>
+
+<!--TABLE SEARCH -->
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+
+
+
+
+
+
+</body>
+
+
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+{% block title %}Nanyang Financial Holdings - Help{% endblock %}
+
+{% block content %}
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#FAQs">FAQs</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#Support">Support</a>
+  </li>
+</ul>
+
+<div class = "tab-content">
+    <div class="tab-pane container active" id="FAQs">
+      <br>
+      <h2>Frequently Asked Questions</h2>
+      <br>
+    <table class ="table table-striped">
+      <thead>
+      <tr>
+        <th>Questions & Answers :)</th>
+      </tr>
+      </thead>
+    </table>
+    <tbody>
+    <tr>
+      <td>
+          <div id="accordion">
+
+            <div class="card">
+              <div class="card-header">
+                <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                  Can i delete account whenever i want?
+                </a>
+              </div>
+              <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                <div class="card-body">
+                  Yes you can! You can proceed to the navigation bar and locate the delete user page. All you have to do is
+                  enter your username and pin.
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+                  Can I change my login pin number?
+                </a>
+              </div>
+              <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                <div class="card-body">
+                  Yes, you can change your login pin number. Proceed to the change pin at the manage user page.
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+                  Can I freeze my account?
+                </a>
+              </div>
+              <div id="collapseThree" class="collapse" data-parent="#accordion">
+                <div class="card-body">
+                  In a case where you card has been misplaced or stolen, you can freeze your account by going to the lock card page.
+                </div>
+              </div>
+            </div>
+
+                        <div class="card">
+              <div class="card-header">
+                <a class="collapsed card-link" data-toggle="collapse" href="#collapseFour">
+                  Can I report an issue or ask questions not appeared in the FAQs?
+                </a>
+              </div>
+              <div id="collapseFour" class="collapse" data-parent="#accordion">
+                <div class="card-body">
+                  Yes, you can do that by going to the help dropdown and click Report % Feedback. In the forms, you can report the issue or ask questions in the
+                  report text area, once you have done that, we will get back to you via email. If you have any feedback, there is a feedback textarea for you to
+                  give a feedback.
+                </div>
+              </div>
+            </div>
+
+                        <div class="card">
+              <div class="card-header">
+                <a class="collapsed card-link" data-toggle="collapse" href="#collapseFive">
+                  Can I give feedback?
+                </a>
+              </div>
+              <div id="collapseFive" class="collapse" data-parent="#accordion">
+                <div class="card-body">
+                 Yes you can by proceeding to the Report & Feedback forms. You can leave the report fill blank if you have nothing to report
+                  and just give feedback which is at the bottom of the form.
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+      </td>
+    </tr>
+    </tbody>
+  </div>
+  <div class="tab-pane container fade" id="Support">
+     <br>
+      <h3>Navigation help</h3>
+      <br>
+    <table class ="table table-striped">
+      <thead>
+      <tr>
+        <th>Tips on navigating the site</th>
+      </tr>
+      </thead>
+    </table>
+    <tbody>
+    <tr>
+      <td>
+          <div id="accordions">
+
+            <div class="card">
+              <div class="card-header">
+                <a class="card-link" data-toggle="collapse" href="#collapse1">
+                  Lock Card.
+                </a>
+              </div>
+              <div id="collapse1" class="collapse show" data-parent="#accordions">
+                <div class="card-body">
+                  Step 1: Go to the Navigation bar and click Lock Card.<br>
+                  Step 2: Key in your username and Pin number.<br>
+                  Step 3: Click the lock button and your account will be locked.
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <a class="collapsed card-link" data-toggle="collapse" href="#collapse2">
+                  Change Pin.
+                </a>
+              </div>
+              <div id="collapse2" class="collapse" data-parent="#accordions">
+                <div class="card-body">
+                  Step 1: Go to the Navigation bar and click on manage users.<<br>
+                  Step 2: Click Change Pin.<br>
+                  Step 3: Key in your username and your initial pin.<br>
+                  Step 4: Key in your new pin.<br>
+                  Step 5: Press the submit button and your pin will be changed.
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <a class="collapsed card-link" data-toggle="collapse" href="#collapse3">
+                  Delete Account.
+                </a>
+              </div>
+              <div id="collapse3" class="collapse" data-parent="#accordions">
+                <div class="card-body">
+                  Step 1: Go to the Navigation bar and click on manage users.<br>
+                  Step 2: Click Delete Account.<br>
+                  Step 3: Key in your username and pin.<br>
+                  Step 4: Click the delete button and your account will be deleted.
+                </div>
+              </div>
+            </div>
+
+                        <div class="card">
+              <div class="card-header">
+                <a class="collapsed card-link" data-toggle="collapse" href="#collapse4">
+                  Report issue & Provide Feedback.
+                </a>
+              </div>
+              <div id="collapse4" class="collapse" data-parent="#accordions">
+                <div class="card-body">
+                  Step 1: Go to the navigation bar and click help.<br>
+                  Step 2: Click on Report and feedback.<br>
+                  Step 3: Key in your first name, last name, email and provide your issue or feedback.<br>
+                  Step 4: Submit your form and we will get back to you!
+                </div>
+              </div>
+            </div>
+
+                        <div class="card">
+              <div class="card-header">
+                <a class="collapsed card-link" data-toggle="collapse" href="#collapse5">
+                  Transfer amount to other.
+                </a>
+              </div>
+              <div id="collapse5" class="collapse" data-parent="#accordions">
+                <div class="card-body">
+                  Step 1: Go to the navigation bar and click transfer.<br>
+                  Step 2: Validate your account to gain access<br>
+                  Step 3: Choose your recipient and the amount to transfer <br>
+                  Step 4: Confirm your transaction <br>
+                </div>
+              </div>
+            </div>
+
+          </div>
+      </td>
+    </tr>
+    </tbody>
+  </div>
+
+  </div>
+
+{% endblock %}

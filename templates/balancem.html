@@ -1,0 +1,74 @@
+{% extends "baset.html" %}
+{% block title %}Nanyang Financial Holdings - Balance Management{% endblock %}
+
+{% block content %}
+  <div class="container-fluid " >
+      <div>
+         <img src="{{url_for('static', filename='istockphoto-1058108750-170667a.jpg')}}" height="200px" width="100%">
+      </div>
+      <div class="mt-2" style="background-color:#E1E3E6; ">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#yb">Your Balance</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#ab">Add balance</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#lt">Limit transactions</a>
+            </li>
+        </ul>
+        <div class="tab-content ml-3">
+            <div class="tab-pane container-fluid active" id="yb" >
+                <h1>
+                    Check balance
+                </h1>
+                <h2 class="mt-4">
+                    Current balance: ${{ user.get_balance() }}
+                </h2>
+                <div class="container-fluid">
+                    <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Recipient ID</th>
+                        <th>Sender ID</th>
+                        <th>Transaction ID</th>
+                        <th>Transaction Type</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for transaction in transaction_list %}
+                      <tr>
+                          <td>{{ transaction.get_recipient_id() }}</td>
+                          <td>{{ transaction.get_sender_id() }}</td>
+                          <td>{{ transaction.get_transact_id() }}</td>
+                          <td>{{ transaction.get_type() }}</td>
+                          <td>{{ transaction.get_time() }}</td>
+                          <td>${{ transaction.get_amount() }}</td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+
+                </div>
+            </div>
+            <div class="tab-pane container-fluid " id="ab">
+                <h1>
+                    Add to your balance
+                </h1>
+                <form method="POST" action="">
+                    <div class="form-group">
+                        {{ form.balance (class="form-control") }}
+                    </div>
+                    <input type="submit" value="Submit" class="btn btn-primary"/>
+
+                </form>
+            </div>
+
+         </div>
+      </div>
+  </div>
+
+{% endblock content %}

@@ -1,0 +1,72 @@
+{% extends "baset.html" %}
+{% block title %}Nanyang Financial Holdings - Transfer{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+{% if 'unveri' in session %}
+<div class="alert alert-danger alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ session.pop('unveri', None) }}.
+</div>
+{% elif 'transferred' in session %}
+<div class="alert alert-success alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ session.pop('transferred', None) }}.
+</div>
+{% endif %}
+ <div class="container-fluid " >
+      <div>
+         <img src="{{url_for('static', filename='istockphoto-1058108750-170667a.jpg')}}" height="200px" width="100%">
+      </div>
+      <div class="mt-2" style="background-color:#E1E3E6; ">
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="nav-item active">
+                <a class="nav-link " data-toggle="tab" id="ntransfer" href="#transfer">1. Transfer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " data-toggle="tab" id="nconfirm" href="#confirm">2. Confirmation</a>
+            </li>
+        </ul>
+        <div class="tab-content ml-3">
+            <div class="tab-pane container-fluid active" id="transfer" >
+                <h2>
+                    Transfer
+                </h2>
+                <form method="POST" action="{{ url_for('transfer') }}">
+                    <div class="form-group">
+                      {{ render_field(transfer_form.recipient, class="form-control") }}
+                      {{ render_field(transfer_form.amount, class="form-control") }}
+                    </div>
+                    <input onclick="test(); $('#myTab li:nth-child(2) a').tab('show');" type="submit" value="Submit" class="btn btn-primary"/>
+                </form>
+
+            </div>
+            <div class="tab-pane container-fluid " id="confirm" >
+                <h1>
+                    Confirmation
+                </h1>
+                <form method="POST" action="{{ url_for('tconfirm') }}">
+                  <div class="form-group">
+                    {{ render_field(form.first_name, class="form-control", readonly_="readonly") }}
+                  </div>
+                  <div class="form-group">
+                    {{ render_field(form.last_name, class="form-control", readonly_="readonly") }}
+                  </div>
+                  <div class="form-group">
+                    {{ render_field(form.gender, class="form-control",readonly_="readonly") }}
+                  </div>
+                  <div class="form-group">
+                    {{ render_field(form.email, class="form-control", readonly_="readonly") }}
+                  </div>
+                  <div class="form-group">
+                    {{ render_field(form.phone, class="form-control", readonly_="readonly") }}
+                  </div>
+                  <input type="submit" value="Submit" class="btn btn-primary"/>
+                </form>
+            </div>
+
+         </div>
+      </div>
+  </div>
+{% endblock content %}
+
